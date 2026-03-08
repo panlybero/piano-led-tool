@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano LED Controller (Frame Buffer Edition)</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <h1>🎹 Piano LED Controller</h1>
+    <p>Make sure to plug in the LED device. Optionally can also use a MIDI keyboard.</p>
+
+    <div class="connection-bar">
+        <button id="connect-btn">Connect to LEDs & MIDI</button>
+        <span id="status">Waiting for connection...</span>
+    </div>
+
+    <div class="tabs">
+        <button type="button" class="tab active" data-tab="play">Active Playing</button>
+        <button type="button" class="tab" data-tab="highlight">Highlight Structure</button>
+        <button type="button" class="tab" data-tab="keys">Highlight Keys</button>
+    </div>
+
+    <section id="panel-play" class="panel active">
+        <div id="midi-log">Play a note to see MIDI data here.</div>
+    </section>
+
+    <section id="panel-highlight" class="panel">
+        <div class="highlight-controls">
+            <label>Category <select id="structure-file"></select></label>
+            <label>Search <input type="text" id="structure-search" placeholder="Search by name…"></label>
+            <label>Range <select id="highlight-range-note"></select> <select id="highlight-range-octave-start"></select> to <select id="highlight-range-octave-end"></select></label>
+            <button type="button" id="highlight-clear">Clear LEDs</button>
+        </div>
+        <div id="structure-list" class="structure-list"></div>
+        <p class="hint">Click a structure to show it on the piano. Edit <code>js/structures-data.js</code> to add more (format: <code>name: 1 3 5</code> or <code>1 2 b3 4 5 b6 b7</code>; each line becomes all 12 keys).</p>
+    </section>
+
+    <section id="panel-keys" class="panel">
+        <div class="keys-panel-controls">
+            <button type="button" id="keys-clear">Clear LEDs</button>
+        </div>
+        <p class="hint keys-hint">Click keys to toggle LEDs, or play keys on your MIDI keyboard to toggle.</p>
+        <div id="piano-keys-wrap" class="piano-keys-wrap"></div>
+    </section>
+
+    <script src="js/config.js"></script>
+    <script src="js/structures-data.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/spatial-mapping.js"></script>
+    <script src="js/serial.js"></script>
+    <script src="js/structures-loader.js"></script>
+    <script src="js/highlight.js"></script>
+    <script src="js/highlight-keys.js"></script>
+    <script src="js/midi.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
