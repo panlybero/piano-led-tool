@@ -35,7 +35,7 @@ void loop() {
           bool isOn = (buffer[byteIndex] & (1 << bitIndex)) != 0;
           
           if (isOn) {
-            strip.setPixelColor(i, strip.Color(0, 0, 50)); // Blue
+            strip.setPixelColor(i, strip.Color(50, 0, 0)); // Blue
           } else {
             strip.setPixelColor(i, strip.Color(0, 0, 0));   // Off
           }
