@@ -17,6 +17,7 @@
             PianoLED.ledState[leds[i]] = v;
         }
         PianoLED.needsUpdate = true;
+        PianoLED.updateVisualPianos();
     }
 
     function isKeyLit(midiNote) {
@@ -25,11 +26,20 @@
         return PianoLED.ledState[leds[0]] === 1;
     }
 
+    function updateVisualPianos() {
+        document.querySelectorAll('.piano-key').forEach(function (el) {
+            const midiNote = parseInt(el.getAttribute('data-midi'), 10);
+            if (isKeyLit(midiNote)) {
+                el.classList.add('lit');
+            } else {
+                el.classList.remove('lit');
+            }
+        });
+    }
+
     function toggleKey(midiNote) {
         const on = !isKeyLit(midiNote);
         setKeyLedState(midiNote, on);
-        const el = document.querySelector('.piano-key[data-midi="' + midiNote + '"]');
-        if (el) el.classList.toggle('lit', on);
     }
 
     function buildPiano(containerId) {
@@ -46,7 +56,7 @@
             key.setAttribute('data-midi', n);
             if (isKeyLit(n)) key.classList.add('lit');
             key.addEventListener('click', function () {
-                if (PianoLED.mode !== 'highlightKeys') return;
+                if (PianoLED.mode !== 'highlightKeys' && PianoLED.mode !== 'tutor') return;
                 toggleKey(n);
             });
             fragment.appendChild(key);
@@ -56,9 +66,7 @@
 
     function clearKeys() {
         PianoLED.clearLedState();
-        document.querySelectorAll('.piano-key.lit').forEach(function (el) {
-            el.classList.remove('lit');
-        });
+        PianoLED.updateVisualPianos();
     }
 
     function toggleKeyByMidi(midiNote) {
@@ -66,6 +74,8 @@
         toggleKey(midiNote);
     }
 
+    PianoLED.isKeyLit = isKeyLit;
+    PianoLED.updateVisualPianos = updateVisualPianos;
     PianoLED.toggleKeyByMidi = toggleKeyByMidi;
     PianoLED.buildPianoKeys = buildPiano;
     PianoLED.clearKeysPanel = clearKeys;

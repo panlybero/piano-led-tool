@@ -13,19 +13,30 @@
     function setTab(tabId) {
         if (tabId === 'highlight') PianoLED.mode = 'highlight';
         else if (tabId === 'keys') PianoLED.mode = 'highlightKeys';
+        else if (tabId === 'tutor') PianoLED.mode = 'tutor';
         else PianoLED.mode = 'play';
+        
         document.querySelectorAll('.tab').forEach(function (btn) {
             btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
         });
         document.querySelectorAll('.panel').forEach(function (panel) {
             panel.classList.toggle('active', panel.id === 'panel-' + tabId);
         });
+        
         if (tabId === 'highlight') {
             if (!structuresData) loadStructuresAndPopulate();
             else populateStructureList();
             if (!document.getElementById('highlight-range-note').options.length) populateRangeDropdowns();
         }
-        if (tabId === 'keys' && !document.querySelector('.piano-key')) PianoLED.buildPianoKeys('piano-keys-wrap');
+        if (tabId === 'keys' && !document.querySelector('#piano-keys-wrap .piano-key')) {
+            PianoLED.buildPianoKeys('piano-keys-wrap');
+        }
+        if (tabId === 'tutor') {
+            if (!document.querySelector('#piano-tutor-wrap .piano-key')) {
+                PianoLED.buildPianoKeys('piano-tutor-wrap');
+            }
+            PianoLED.updateVisualPianos();
+        }
     }
 
     function populateRangeDropdowns() {
@@ -164,6 +175,10 @@
         document.getElementById('keys-clear').addEventListener('click', function () {
             PianoLED.clearKeysPanel();
         });
+
+        if (PianoLED.initTutorPanel) {
+            PianoLED.initTutorPanel();
+        }
     }
 
     if (document.readyState === 'loading') {

@@ -20,6 +20,7 @@
         <button type="button" class="tab active" data-tab="play">Active Playing</button>
         <button type="button" class="tab" data-tab="highlight">Highlight Structure</button>
         <button type="button" class="tab" data-tab="keys">Highlight Keys</button>
+        <button type="button" class="tab" data-tab="tutor">AI Tutor</button>
     </div>
 
     <section id="panel-play" class="panel active">
@@ -45,6 +46,38 @@
         <div id="piano-keys-wrap" class="piano-keys-wrap"></div>
     </section>
 
+    <section id="panel-tutor" class="panel">
+        <div class="tutor-header">
+            <h3>🤖 AI Piano Tutor</h3>
+            <button type="button" id="tutor-toggle-settings" class="tutor-settings-btn">⚙️ API Settings</button>
+        </div>
+
+        <div id="tutor-settings-box" class="tutor-settings-box hidden">
+            <label for="tutor-api-key">Gemini API Key:</label>
+            <input type="password" id="tutor-api-key" placeholder="Enter API Key here..." />
+            <button type="button" id="tutor-save-key-btn">Save Key</button>
+            <div id="tutor-settings-status" class="tutor-settings-status"></div>
+        </div>
+
+        <div id="tutor-chat-messages" class="tutor-chat-messages">
+            <!-- Dynamic chat messages go here -->
+            <div class="message tutor-msg system-msg">
+                👋 Welcome! I am your AI Piano Tutor. Ask me to show you any scale, chord, or key pattern on the piano keyboard!
+            </div>
+        </div>
+
+        <div class="tutor-input-area">
+            <textarea id="tutor-user-input" placeholder="Type a message... e.g. 'Show me C minor chord'" rows="1"></textarea>
+            <div class="tutor-buttons">
+                <button type="button" id="tutor-send-btn">Send</button>
+                <button type="button" id="tutor-reset-btn" class="reset-btn">Reset Chat & Piano</button>
+            </div>
+        </div>
+
+        <p class="hint keys-hint">Click keys on the virtual piano below to highlight them, or chat with the tutor.</p>
+        <div id="piano-tutor-wrap" class="piano-keys-wrap"></div>
+    </section>
+
     <script src="js/config.js"></script>
     <script src="js/structures-data.js"></script>
     <script src="js/state.js"></script>
@@ -55,6 +88,7 @@
     <script src="js/highlight-keys.js"></script>
     <script src="js/midi.js"></script>
     <script src="js/render.js"></script>
+    <script src="js/tutor.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
